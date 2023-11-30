@@ -1,0 +1,46 @@
+Step-1:
+app.component.html
+
+<p>User Information: {{userInfo|json}}</p>
+
+app.component.ts
+import { Component,OnInit } from'@angular/core';
+import { HttpClient } from'@angular/common/http';
+@Component({
+selector:'app-root',
+templateUrl:'./app.component.html',
+styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+title='hello';
+publicuserInfo:any;
+public constructor(privatehttp:HttpClient) {}
+public ngOnInit():void {
+const url:string='/assets/data.json';
+this.http.get(url).subscribe((response) => {
+this.userInfo=response;
+});
+}
+}
+
+
+app.module.ts
+
+import { NgModule } from'@angular/core';
+import { BrowserModule } from'@angular/platform-browser';
+import { FormsModule } from'@angular/forms';
+import {HttpClientModule} from'@angular/common/http';
+import { AppRoutingModule } from'./app-routing.module';
+import { AppComponent } from'./app.component';
+@NgModule({
+declarations: [
+AppComponent
+],
+imports: [
+BrowserModule,
+AppRoutingModule,FormsModule,HttpClientModule
+],
+providers: [],
+bootstrap: [AppComponent]
+})
+exportclassAppModule { }
